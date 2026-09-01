@@ -28,20 +28,28 @@
   <!-- ================= PANTALLA DE BIENVENIDA ================= -->
   <section class="screen is-active" data-screen="welcome">
     <div class="card card-hero">
-      <p class="kicker">Investigación académica</p>
-      <h1>Encuesta sobre ropa deportiva femenina</h1>
-      <p class="lead">Estamos realizando una investigación académica sobre las preferencias y percepción de precio
-        de consumidoras de ropa deportiva en México. Tus respuestas serán utilizadas únicamente con fines académicos
-        y serán analizadas de forma agregada.</p>
+      <div class="hero-media">
+        <img src="img/hero.jpg" alt="Legging deportivo femenino de talle alto" width="1194" height="1200">
+        <div class="hero-overlay">
+          <p class="kicker kicker-light">Investigación académica</p>
+          <h1>Encuesta sobre ropa deportiva femenina</h1>
+        </div>
+      </div>
 
-      <ul class="facts">
-        <li><span>Duración</span> 3 a 5 minutos</li>
-        <li><span>Participación</span> Voluntaria, puedes cerrar cuando quieras</li>
-        <li><span>Respuestas</span> Anónimas y agregadas</li>
-        <li><span>Datos personales</span> No pedimos nombre, correo ni contacto</li>
-      </ul>
+      <div class="hero-body">
+        <p class="lead">Estamos realizando una investigación académica sobre las preferencias y percepción de precio
+          de consumidoras de ropa deportiva en México. Tus respuestas serán utilizadas únicamente con fines académicos
+          y serán analizadas de forma agregada.</p>
 
-      <button class="btn btn-primary btn-block" id="btnStart" type="button">Comenzar encuesta</button>
+        <ul class="facts">
+          <li><span>Duración</span> 3 a 5 minutos</li>
+          <li><span>Participación</span> Voluntaria, puedes cerrar cuando quieras</li>
+          <li><span>Respuestas</span> Anónimas y agregadas</li>
+          <li><span>Datos personales</span> No pedimos nombre, correo ni contacto</li>
+        </ul>
+
+        <button class="btn btn-primary btn-block" id="btnStart" type="button">Comenzar encuesta</button>
+      </div>
     </div>
   </section>
 
@@ -167,11 +175,30 @@
     <div class="card product-card">
       <p class="kicker">Producto de referencia</p>
       <h2 class="product-title">Legging deportivo femenino</h2>
-      <p class="lead">Para las siguientes preguntas, imagina un legging deportivo femenino con estas características:</p>
+      <p class="lead">Para las siguientes preguntas, imagina un legging como este:</p>
+
+      <!-- Galería: la foto grande cambia al tocar las miniaturas -->
+      <div class="gallery">
+        <div class="gallery-main">
+          <img id="galleryMain" src="img/legging-bolsa.jpg" alt="Legging deportivo femenino negro con bolsa lateral" width="900" height="1350">
+        </div>
+        <div class="gallery-thumbs" id="galleryThumbs">
+          <button type="button" class="thumb is-active" data-src="img/legging-bolsa.jpg" aria-label="Ver de cuerpo completo">
+            <img src="img/legging-bolsa.jpg" alt="" width="900" height="1350">
+          </button>
+          <button type="button" class="thumb" data-src="img/legging-detalle.jpg" aria-label="Ver detalle de tela y cintura">
+            <img src="img/legging-detalle.jpg" alt="" width="900" height="1350">
+          </button>
+          <button type="button" class="thumb" data-src="img/legging-flare.jpg" aria-label="Ver corte acampanado">
+            <img src="img/legging-flare.jpg" alt="" width="900" height="1350">
+          </button>
+        </div>
+      </div>
+
       <ul class="specs">
-        <li><span>Material</span> 84% poliéster y 16% spandex</li>
+        <li><span>Material</span> 84% poliéster · 16% spandex</li>
         <li><span>Tela</span> Elástica, de alta recuperación</li>
-        <li><span>Ajuste</span> Cómodo, se adapta al cuerpo</li>
+        <li><span>Ajuste</span> Talle alto, cómodo</li>
         <li><span>Diseño</span> Pensado para entrenamiento</li>
         <li><span>Resistencia</span> Material duradero</li>
         <li><span>Uso</span> Gimnasio y actividad física</li>
@@ -184,7 +211,15 @@
   <section class="screen" data-screen="4">
     <div class="card">
       <h2 class="section-title">Tu percepción de precio</h2>
-      <p class="section-note">Piensa en el legging descrito en la pantalla anterior y escribe precios en pesos mexicanos.</p>
+      <p class="section-note">Piensa en el legging que acabas de ver y escribe precios en pesos mexicanos.</p>
+
+      <div class="mini-product">
+        <img src="img/legging-detalle.jpg" alt="" width="900" height="1350">
+        <div>
+          <strong>Legging deportivo femenino</strong>
+          <span>84% poliéster · 16% spandex · talle alto</span>
+        </div>
+      </div>
 
       <div class="q" data-type="money" data-name="too_cheap" data-required="true">
         <p class="q-title"><span class="q-num">9</span>¿A partir de qué precio considerarías que este legging es tan barato que desconfiarías de su calidad?</p>
@@ -236,6 +271,15 @@
       <h2 class="section-title">Intención de compra</h2>
       <p class="section-note">Considerando el mismo legging descrito antes, indica qué tan probable sería que lo compraras
         a cada uno de los siguientes precios.</p>
+
+      <div class="mini-product">
+        <img src="img/legging-bolsa.jpg" alt="" width="900" height="1350">
+        <div>
+          <strong>Legging deportivo femenino</strong>
+          <span>El mismo producto de la pantalla anterior</span>
+        </div>
+      </div>
+
       <div id="intentionList"></div>
     </div>
   </section>
