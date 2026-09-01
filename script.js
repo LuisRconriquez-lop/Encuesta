@@ -10,7 +10,7 @@
 // AQUÍ PEGAS LA URL QUE TE DA GOOGLE al hacer "Implementar > Nueva implementación > Aplicación web".
 // Debe terminar en /exec  (NO uses la que termina en /dev).
 // Ejemplo del formato: https://script.google.com/macros/s/AKfycb.../exec
-const GOOGLE_SCRIPT_URL = "PEGA_AQUÍ_TU_URL_DE_GOOGLE_APPS_SCRIPT";
+const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyET3d560Wyfcdbvubg_gsqZrQjXow_kvSlJO7y_f5IlxQxoy3zUVbrzDFW8Q6VHlmb/exec";
 
 // URL pública de la encuesta en Netlify.
 // AQUÍ PEGAS LA URL que te asigna Netlify después de publicar el sitio.
