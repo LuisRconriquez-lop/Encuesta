@@ -243,6 +243,25 @@ el.rankList.addEventListener("pointercancel", terminarArrastre);
 
 
 /* --------------------------------------------------------------------------
+   Galería del producto de referencia
+   -------------------------------------------------------------------------- */
+
+var galleryThumbs = document.getElementById("galleryThumbs");
+if (galleryThumbs) {
+  galleryThumbs.addEventListener("click", (e) => {
+    const thumb = e.target.closest(".thumb");
+    if (!thumb) return;
+    const main = document.getElementById("galleryMain");
+    main.src = thumb.dataset.src;
+    main.style.animation = "none";
+    void main.offsetWidth;          // fuerza a reiniciar la transición de aparición
+    main.style.animation = "";
+    galleryThumbs.querySelectorAll(".thumb").forEach(t => t.classList.toggle("is-active", t === thumb));
+  });
+}
+
+
+/* --------------------------------------------------------------------------
    Pregunta 2 · si responde "No", las preguntas 3 y 4 pasan a ser opcionales
    -------------------------------------------------------------------------- */
 
