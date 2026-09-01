@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Encuesta sobre ropa deportiva femenina · OWFIT</title>
+<meta name="description" content="Investigación académica sobre preferencias y percepción de precio en ropa deportiva femenina en México.">
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header class="topbar" id="topbar">
+  <div class="topbar-inner">
+    <span class="brand">OWFIT</span>
+    <span class="step-label" id="stepLabel" hidden>Paso 1 de 5</span>
+  </div>
+  <div class="progress" id="progress" hidden>
+    <div class="progress-fill" id="progressFill"></div>
+  </div>
+</header>
+
+<main class="app" id="app">
+
+  <!-- ================= PANTALLA DE BIENVENIDA ================= -->
+  <section class="screen is-active" data-screen="welcome">
+    <div class="card card-hero">
+      <p class="kicker">Investigación académica</p>
+      <h1>Encuesta sobre ropa deportiva femenina</h1>
+      <p class="lead">Estamos realizando una investigación académica sobre las preferencias y percepción de precio
+        de consumidoras de ropa deportiva en México. Tus respuestas serán utilizadas únicamente con fines académicos
+        y serán analizadas de forma agregada.</p>
+
+      <ul class="facts">
+        <li><span>Duración</span> 3 a 5 minutos</li>
+        <li><span>Participación</span> Voluntaria, puedes cerrar cuando quieras</li>
+        <li><span>Respuestas</span> Anónimas y agregadas</li>
+        <li><span>Datos personales</span> No pedimos nombre, correo ni contacto</li>
+      </ul>
+
+      <button class="btn btn-primary btn-block" id="btnStart" type="button">Comenzar encuesta</button>
+    </div>
+  </section>
+
+  <!-- ================= SECCIÓN 1 · PERFIL ================= -->
+  <section class="screen" data-screen="1">
+    <div class="card">
+      <h2 class="section-title">Sobre ti</h2>
+      <p class="section-note">Cuatro preguntas rápidas para entender tu perfil de compra.</p>
+
+      <!-- P1 -->
+      <div class="q" data-type="radio" data-name="age" data-required="true">
+        <p class="q-title"><span class="q-num">1</span>Edad</p>
+        <div class="options">
+          <label class="opt"><input type="radio" name="age" value="Menor de 18 años"><span>Menor de 18 años</span></label>
+          <label class="opt"><input type="radio" name="age" value="18-24"><span>18 a 24 años</span></label>
+          <label class="opt"><input type="radio" name="age" value="25-34"><span>25 a 34 años</span></label>
+          <label class="opt"><input type="radio" name="age" value="35-44"><span>35 a 44 años</span></label>
+          <label class="opt"><input type="radio" name="age" value="45-54"><span>45 a 54 años</span></label>
+          <label class="opt"><input type="radio" name="age" value="55 o más"><span>55 años o más</span></label>
+        </div>
+        <p class="err" hidden>Elige una opción para continuar.</p>
+      </div>
+
+      <!-- P2 -->
+      <div class="q" data-type="radio" data-name="buys_sportswear" data-required="true">
+        <p class="q-title"><span class="q-num">2</span>¿Compras ropa deportiva para hacer ejercicio, gimnasio o actividades deportivas?</p>
+        <div class="options">
+          <label class="opt"><input type="radio" name="buys_sportswear" value="Sí, frecuentemente"><span>Sí, frecuentemente</span></label>
+          <label class="opt"><input type="radio" name="buys_sportswear" value="Sí, ocasionalmente"><span>Sí, ocasionalmente</span></label>
+          <label class="opt"><input type="radio" name="buys_sportswear" value="Rara vez"><span>Rara vez</span></label>
+          <label class="opt"><input type="radio" name="buys_sportswear" value="No"><span>No</span></label>
+        </div>
+        <p class="err" hidden>Elige una opción para continuar.</p>
+      </div>
+
+      <!-- P3 -->
+      <div class="q" data-type="radio" data-name="purchase_frequency" data-required="true" id="q3">
+        <p class="q-title"><span class="q-num">3</span>¿Con qué frecuencia compras ropa deportiva?
+          <span class="optional-tag" hidden>opcional</span></p>
+        <div class="options">
+          <label class="opt"><input type="radio" name="purchase_frequency" value="Una vez al mes o más"><span>Una vez al mes o más</span></label>
+          <label class="opt"><input type="radio" name="purchase_frequency" value="Cada 2-3 meses"><span>Cada 2 o 3 meses</span></label>
+          <label class="opt"><input type="radio" name="purchase_frequency" value="Cada 4-6 meses"><span>Cada 4 a 6 meses</span></label>
+          <label class="opt"><input type="radio" name="purchase_frequency" value="Una o dos veces al año"><span>Una o dos veces al año</span></label>
+          <label class="opt"><input type="radio" name="purchase_frequency" value="Menos de una vez al año"><span>Menos de una vez al año</span></label>
+        </div>
+        <p class="err" hidden>Elige una opción para continuar.</p>
+      </div>
+
+      <!-- P4 -->
+      <div class="q" data-type="radio" data-name="usual_spending" data-required="true" id="q4">
+        <p class="q-title"><span class="q-num">4</span>¿Cuánto sueles gastar en una sola prenda deportiva?
+          <span class="optional-tag" hidden>opcional</span></p>
+        <div class="options">
+          <label class="opt"><input type="radio" name="usual_spending" value="Menos de $500 MXN"><span>Menos de $500</span></label>
+          <label class="opt"><input type="radio" name="usual_spending" value="$500-$699"><span>$500 a $699</span></label>
+          <label class="opt"><input type="radio" name="usual_spending" value="$700-$899"><span>$700 a $899</span></label>
+          <label class="opt"><input type="radio" name="usual_spending" value="$900-$1,099"><span>$900 a $1,099</span></label>
+          <label class="opt"><input type="radio" name="usual_spending" value="$1,100-$1,499"><span>$1,100 a $1,499</span></label>
+          <label class="opt"><input type="radio" name="usual_spending" value="$1,500-$1,999"><span>$1,500 a $1,999</span></label>
+          <label class="opt"><input type="radio" name="usual_spending" value="$2,000 o más"><span>$2,000 o más</span></label>
+        </div>
+        <p class="err" hidden>Elige una opción para continuar.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= SECCIÓN 2 · FACTORES ================= -->
+  <section class="screen" data-screen="2">
+    <div class="card">
+      <h2 class="section-title">Qué pesa en tu decisión</h2>
+      <p class="section-note">Ahora hablemos de cómo eliges y dónde compras.</p>
+
+      <!-- P5 · Ranking drag and drop -->
+      <div class="q" data-type="ranking" data-name="factor_ranking" data-required="true">
+        <p class="q-title"><span class="q-num">5</span>Ordena estos factores según su importancia al comprar ropa deportiva</p>
+        <p class="q-help">Arrastra los factores desde el asa <span class="grip-inline" aria-hidden="true"></span> para ordenarlos.
+          El 1 es el factor más importante y el 5 el menos importante. También puedes usar las flechas.</p>
+        <ul class="rank-list" id="rankList" aria-label="Lista ordenable de factores"></ul>
+      </div>
+
+      <!-- P6 · múltiple -->
+      <div class="q" data-type="checkbox" data-name="purchase_channels" data-required="true">
+        <p class="q-title"><span class="q-num">6</span>¿Dónde compras normalmente ropa deportiva?</p>
+        <p class="q-help">Puedes elegir varias opciones.</p>
+        <div class="options">
+          <label class="opt"><input type="checkbox" name="purchase_channels" value="Tiendas físicas de marca"><span>Tiendas físicas de marca</span></label>
+          <label class="opt"><input type="checkbox" name="purchase_channels" value="Sitios web oficiales de marcas"><span>Sitios web oficiales de marcas</span></label>
+          <label class="opt"><input type="checkbox" name="purchase_channels" value="Marketplaces"><span>Marketplaces (Amazon, Mercado Libre, Shein…)</span></label>
+          <label class="opt"><input type="checkbox" name="purchase_channels" value="Tiendas departamentales"><span>Tiendas departamentales</span></label>
+          <label class="opt"><input type="checkbox" name="purchase_channels" value="Redes sociales"><span>Redes sociales</span></label>
+          <label class="opt"><input type="checkbox" name="purchase_channels" value="Otro"><span>Otro</span></label>
+        </div>
+        <p class="err" hidden>Elige al menos una opción para continuar.</p>
+      </div>
+
+      <!-- P7 · única -->
+      <div class="q" data-type="radio" data-name="main_purchase_channel" data-required="true">
+        <p class="q-title"><span class="q-num">7</span>¿Cuál es tu canal principal de compra?</p>
+        <p class="q-help">Elige solo uno.</p>
+        <div class="options">
+          <label class="opt"><input type="radio" name="main_purchase_channel" value="Tienda física"><span>Tienda física</span></label>
+          <label class="opt"><input type="radio" name="main_purchase_channel" value="Sitio web oficial"><span>Sitio web oficial</span></label>
+          <label class="opt"><input type="radio" name="main_purchase_channel" value="Marketplace"><span>Marketplace</span></label>
+          <label class="opt"><input type="radio" name="main_purchase_channel" value="Tienda departamental"><span>Tienda departamental</span></label>
+          <label class="opt"><input type="radio" name="main_purchase_channel" value="Redes sociales"><span>Redes sociales</span></label>
+          <label class="opt"><input type="radio" name="main_purchase_channel" value="Otro"><span>Otro</span></label>
+        </div>
+        <p class="err" hidden>Elige una opción para continuar.</p>
+      </div>
+
+      <!-- P8 · Likert -->
+      <div class="q" data-type="radio" data-name="packaging_importance" data-required="true">
+        <p class="q-title"><span class="q-num">8</span>¿Qué tan importante es para ti el empaque del producto?</p>
+        <div class="likert" data-likert="packaging_importance"></div>
+        <p class="err" hidden>Elige un nivel para continuar.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= SECCIÓN 3 · PRODUCTO DE REFERENCIA ================= -->
+  <section class="screen" data-screen="3">
+    <div class="card product-card">
+      <p class="kicker">Producto de referencia</p>
+      <h2 class="product-title">Legging deportivo femenino</h2>
+      <p class="lead">Para las siguientes preguntas, imagina un legging deportivo femenino con estas características:</p>
+      <ul class="specs">
+        <li><span>Material</span> 84% poliéster y 16% spandex</li>
+        <li><span>Tela</span> Elástica, de alta recuperación</li>
+        <li><span>Ajuste</span> Cómodo, se adapta al cuerpo</li>
+        <li><span>Diseño</span> Pensado para entrenamiento</li>
+        <li><span>Resistencia</span> Material duradero</li>
+        <li><span>Uso</span> Gimnasio y actividad física</li>
+      </ul>
+      <p class="product-note">Todas las preguntas de precio que siguen se refieren únicamente a este producto.</p>
+    </div>
+  </section>
+
+  <!-- ================= SECCIÓN 4 · PERCEPCIÓN DE PRECIO ================= -->
+  <section class="screen" data-screen="4">
+    <div class="card">
+      <h2 class="section-title">Tu percepción de precio</h2>
+      <p class="section-note">Piensa en el legging descrito en la pantalla anterior y escribe precios en pesos mexicanos.</p>
+
+      <div class="q" data-type="money" data-name="too_cheap" data-required="true">
+        <p class="q-title"><span class="q-num">9</span>¿A partir de qué precio considerarías que este legging es tan barato que desconfiarías de su calidad?</p>
+        <div class="money-field">
+          <span class="money-symbol">$</span>
+          <input type="number" inputmode="numeric" min="1" step="1" name="too_cheap" placeholder="0" autocomplete="off">
+          <span class="money-currency">MXN</span>
+        </div>
+        <p class="err" hidden>Escribe un precio mayor a cero.</p>
+      </div>
+
+      <div class="q" data-type="money" data-name="good_value" data-required="true">
+        <p class="q-title"><span class="q-num">10</span>¿A qué precio considerarías que este legging representa una buena compra o una buena relación calidad-precio?</p>
+        <div class="money-field">
+          <span class="money-symbol">$</span>
+          <input type="number" inputmode="numeric" min="1" step="1" name="good_value" placeholder="0" autocomplete="off">
+          <span class="money-currency">MXN</span>
+        </div>
+        <p class="err" hidden>Escribe un precio mayor a cero.</p>
+      </div>
+
+      <div class="q" data-type="money" data-name="expensive" data-required="true">
+        <p class="q-title"><span class="q-num">11</span>¿A partir de qué precio comenzarías a considerar que este legging es caro, pero todavía podrías comprarlo?</p>
+        <div class="money-field">
+          <span class="money-symbol">$</span>
+          <input type="number" inputmode="numeric" min="1" step="1" name="expensive" placeholder="0" autocomplete="off">
+          <span class="money-currency">MXN</span>
+        </div>
+        <p class="err" hidden>Escribe un precio mayor a cero.</p>
+      </div>
+
+      <div class="q" data-type="money" data-name="too_expensive" data-required="true">
+        <p class="q-title"><span class="q-num">12</span>¿A partir de qué precio considerarías que este legging es demasiado caro y definitivamente no lo comprarías?</p>
+        <div class="money-field">
+          <span class="money-symbol">$</span>
+          <input type="number" inputmode="numeric" min="1" step="1" name="too_expensive" placeholder="0" autocomplete="off">
+          <span class="money-currency">MXN</span>
+        </div>
+        <p class="err" hidden>Escribe un precio mayor a cero.</p>
+      </div>
+
+      <div class="notice notice-warn" id="vwNotice" hidden></div>
+    </div>
+  </section>
+
+  <!-- ================= SECCIÓN 5 · INTENCIÓN DE COMPRA ================= -->
+  <section class="screen" data-screen="5">
+    <div class="card">
+      <h2 class="section-title">Intención de compra</h2>
+      <p class="section-note">Considerando el mismo legging descrito antes, indica qué tan probable sería que lo compraras
+        a cada uno de los siguientes precios.</p>
+      <div id="intentionList"></div>
+    </div>
+  </section>
+
+  <!-- ================= PANTALLA FINAL ================= -->
+  <section class="screen" data-screen="thanks">
+    <div class="card card-thanks">
+      <div class="check" aria-hidden="true">
+        <svg viewBox="0 0 48 48" fill="none"><circle cx="24" cy="24" r="22" stroke="currentColor" stroke-width="1.5"/><path d="M15 24.5l6.5 6.5L34 18.5" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <h2>¡Gracias por participar!</h2>
+      <p class="lead">Tu respuesta ha sido registrada correctamente. Gracias por contribuir a esta investigación
+        académica sobre el mercado de ropa deportiva femenina en México.</p>
+      <p class="share-note" id="shareNote" hidden>¿Conoces a alguien que quiera responder? Comparte esta liga:
+        <a id="shareLink" href="#" target="_blank" rel="noopener"></a>
+      </p>
+    </div>
+  </section>
+
+</main>
+
+<!-- ================= NAVEGACIÓN ================= -->
+<nav class="navbar" id="navbar" hidden>
+  <div class="navbar-inner">
+    <button class="btn btn-ghost" id="btnBack" type="button">Atrás</button>
+    <button class="btn btn-primary" id="btnNext" type="button">Continuar</button>
+  </div>
+  <p class="send-status" id="sendStatus" hidden></p>
+</nav>
+
+<script src="script.js"></script>
+</body>
+</html>
