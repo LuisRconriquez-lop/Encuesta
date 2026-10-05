@@ -120,8 +120,8 @@ button:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
     </div>
     <span class="eyebrow">Fundamentos de computación</span>
     <h1><span class="hl hl1">Hardware</span>, <span class="hl hl2">software</span> y <span class="hl hl3">memoria</span></h1>
-    <p class="lead">Elige una respuesta por pregunta. Al terminar presiona <strong>Calificar</strong> para ver tu puntaje y la explicación de cada respuesta.</p>
-    <div class="meta"><span class="chip" style="--c:var(--c6)">10 preguntas</span><span class="chip" style="--c:var(--c4)">10 pts c/u</span><span class="chip" style="--c:var(--c3)">Total: 100 pts</span></div>
+    <p class="lead">Te tocan 10 preguntas al azar de un banco de 25, así que a cada quien le sale un examen distinto. Elige una respuesta por pregunta y al terminar presiona <strong>Calificar</strong> para ver tu puntaje y la explicación de cada respuesta.</p>
+    <div class="meta"><span class="chip" style="--c:var(--c6)">10 preguntas al azar</span><span class="chip" style="--c:var(--c4)">10 pts c/u</span><span class="chip" style="--c:var(--c3)">Total: 100 pts</span></div>
   </header>
   <section id="result" class="result" hidden aria-live="polite"></section>
   <form id="quiz" class="list" style="display:grid;gap:16px"></form>
@@ -141,38 +141,97 @@ button:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
 </div>
 
 <script>
-const QUESTIONS = [
-  { q:"Es el componente que interpreta y ejecuta las instrucciones de los programas; se le conoce como el “cerebro” de la computadora.",
-    opts:["Tarjeta de video","CPU (Unidad Central de Procesamiento)","Fuente de poder"], a:1,
-    why:"La CPU procesa los datos y ejecuta las instrucciones. La tarjeta de video genera imágenes y la fuente de poder da energía." },
-  { q:"Teclado, escáner y micrófono son ejemplos de…",
-    opts:["Dispositivos de salida","Dispositivos de almacenamiento","Dispositivos de entrada"], a:2,
-    why:"Los tres introducen información a la computadora, por eso son de entrada." },
-  { q:"Esta memoria viene grabada de fábrica, no se borra al apagar la computadora y contiene las instrucciones de arranque.",
-    opts:["RAM","ROM","Virtual"], a:1,
-    why:"La ROM (Read Only Memory) es de solo lectura y no es volátil; guarda, por ejemplo, el firmware de arranque." },
-  { q:"Memoria muy rápida y pequeña ubicada entre la CPU y la RAM, que guarda los datos que se usan con más frecuencia.",
-    opts:["Memoria caché","Memoria secundaria","Memoria virtual"], a:0,
-    why:"La caché acelera el trabajo de la CPU al tener a la mano los datos más usados." },
-  { q:"La memoria RAM es volátil: su contenido se pierde cuando se apaga la computadora.",
-    opts:["Verdadero","Falso"], a:0,
-    why:"Por eso hay que guardar los archivos en un dispositivo de almacenamiento antes de apagar." },
-  { q:"¿Cuántos bits forman un byte?",
-    opts:["4","8","16"], a:1,
-    why:"1 byte = 8 bits. Con un byte se puede representar, por ejemplo, un carácter de texto." },
-  { q:"Una pantalla táctil y una impresora multifuncional (que imprime y escanea) son dispositivos…",
-    opts:["Solo de entrada","Solo de salida","De entrada y salida (mixtos)"], a:2,
-    why:"Ambos reciben información del usuario y también la muestran o producen, así que son mixtos." },
-  { q:"Windows, macOS, Linux y Android son ejemplos de…",
-    opts:["Software de aplicación","Sistemas operativos","Lenguajes de programación"], a:1,
-    why:"Son software de sistema: administran el hardware y permiten que corran los demás programas." },
-  { q:"Word, Excel y Google Chrome pertenecen al tipo de software de…",
-    opts:["Sistema","Programación","Aplicación"], a:2,
-    why:"El software de aplicación sirve para que el usuario realice tareas concretas: escribir, calcular, navegar." },
-  { q:"¿Qué puerto se usa para conectar la computadora a una red cableada (Internet por cable)?",
-    opts:["Puerto HDMI","Puerto Ethernet (RJ-45)","Puerto VGA"], a:1,
-    why:"Ethernet (RJ-45) es el puerto de red. HDMI y VGA sirven para conectar pantallas." },
+/* ===== BANCO DE PREGUNTAS =====
+   q: pregunta · opts: opciones · a: índice de la correcta (0 = primera) · why: explicación
+   fixed: true = no revolver las opciones (para "Todas/Ninguna de las anteriores" y Cierto/Falso) */
+const PER_QUIZ = 10;
+const BANK = [
+  { q:"Este tipo de memoria permite que las computadoras sin suficiente RAM trabajen programas grandes, manipulen grandes archivos de datos y corran a la vez más de un programa.",
+    opts:["ROM","Caché","Virtual"], a:2,
+    why:"La memoria virtual usa parte del disco como si fuera RAM cuando la RAM no alcanza." },
+  { q:"Entre los dispositivos de entrada encontramos:",
+    opts:["Monitor, cables, contactos","Mouse, impresora, cámara web","Pantalla táctil, mouse, teclado, joystick"], a:2,
+    why:"Todos introducen información a la computadora. El monitor y la impresora son de salida." },
+  { q:"Si el sistema operativo controla los dispositivos de entrada/salida desde el CPU hacia los periféricos y viceversa, entonces algunas de sus tareas son:",
+    opts:["Administrar la manera en la que se guardan/leen los datos en las unidades de almacenamiento","Controlar la información que será procesada y ejecutar los programas instalados","Desplegar elementos en pantalla para que pueda interactuar el usuario","Todas las anteriores"], a:3, fixed:true,
+    why:"El sistema operativo hace las tres cosas: administra el almacenamiento, ejecuta programas y muestra la interfaz." },
+  { q:"¿Qué función tiene la memoria secundaria?",
+    opts:["Es una memoria de solo lectura porque la información es parte de los circuitos del sistema y no puede ser modificada","Se usa para contener bloques de instrucciones muy usados por la CPU y así hacer más eficiente su ejecución","Es todo aquel dispositivo que almacena información en forma más permanente"], a:2,
+    why:"La memoria secundaria (disco duro, SSD, USB) guarda la información aunque se apague la computadora. La primera opción describe la ROM y la segunda la caché." },
+  { q:"Los datos, información y procesos se pueden almacenar en distintos elementos como:",
+    opts:["Se guarda en disco duro y vía correo","Correo electrónico, unidad USB, unidad C","CD, DVD, unidad USB, disco duro"], a:2,
+    why:"Todos son dispositivos físicos de almacenamiento. El correo electrónico es un servicio, no un dispositivo." },
+  { q:"La función de los dispositivos de almacenamiento es:",
+    opts:["Ayudar a recuperar información de la computadora cuando ésta se apaga","Realizar operaciones de lectura y/o escritura de los medios donde se almacenan, lógica y físicamente, los archivos de un sistema informático","Introducir información a la computadora"], a:1,
+    why:"Los dispositivos de almacenamiento leen y escriben los archivos. Introducir información es tarea de los dispositivos de entrada." },
+  { q:"Cuando hablamos de dispositivos de almacenamiento nos estamos refiriendo a:",
+    opts:["Respaldo de datos, transferencia de archivos, instalación de nuevos programas","Transferencia de datos, reseteo, recuperación de programas","Ninguno de los anteriores"], a:0, fixed:true,
+    why:"Sirven para respaldar datos, pasar archivos de un equipo a otro e instalar programas." },
+  { q:"Cuando hablamos de todo lo que se puede conectar a la computadora nos estamos refiriendo a los dispositivos periféricos.",
+    opts:["Cierto","Falso"], a:0, fixed:true,
+    why:"Periférico es todo dispositivo que se conecta a la computadora: de entrada, salida o almacenamiento." },
+  { q:"Monitor, impresora, bocinas y plotter son ejemplos de…",
+    opts:["Dispositivos de entrada","Dispositivos de salida"], a:1, fixed:true,
+    why:"Todos muestran o entregan información al usuario, por eso son de salida." },
+  { q:"¿Cuál es el puerto que se utiliza para la transmisión de audio y video sin comprimir de un equipo a otro con un único cable (incluido el contenido de alta definición)?",
+    opts:["Puerto USB","Puerto paralelo","Puerto HDMI"], a:2,
+    why:"HDMI transmite audio y video en alta definición por un solo cable." },
+  { q:"El sistema operativo se clasifica en:",
+    opts:["Monousuario - Multiproceso","Multiproceso - Poliusuario - Multiusuario","Monousuario - Multiusuario - Multiproceso"], a:2,
+    why:"Se clasifica por cuántos usuarios atiende (mono o multiusuario) y por cuántos procesos ejecuta a la vez (multiproceso)." },
+  { q:"En esta parte del ciclo de procesamiento la computadora acepta los datos que provienen de alguna fuente, externa o interna. Se está hablando de…",
+    opts:["Procesamiento","Almacenamiento","Entrada"], a:2,
+    why:"La entrada es la etapa en la que la computadora recibe los datos." },
+  { q:"En la etapa de procesamiento la computadora está lista para procesar datos y realizar acciones con ellos una vez que los recibe.",
+    opts:["Verdadero","Falso"], a:0, fixed:true,
+    why:"Después de recibir los datos (entrada), la computadora los procesa." },
+  { q:"¿Cuál es el esquema correcto del ciclo de procesamiento?",
+    opts:["Entrada - Programación - Procesamiento - Salida","Entrada - Procesamiento - Almacenamiento - Salida","Entrada - Ejecución - Almacenamiento - Salida"], a:1,
+    why:"Primero entran los datos, se procesan, se guardan y finalmente se muestran como salida." },
+  { q:"La memoria de la computadora se divide en dos partes: memoria primaria y memoria secundaria.",
+    opts:["Cierto","Falso"], a:0, fixed:true,
+    why:"La primaria es la memoria interna (RAM, ROM, caché) y la secundaria es el almacenamiento permanente." },
+  { q:"Se refiere a todo lo que constituye el sistema de cómputo, lo que es visible y se puede tocar.",
+    opts:["Software","Hardware","Sistemas de operación"], a:1,
+    why:"El hardware es la parte física de la computadora." },
+  { q:"Algunos ejemplos de licenciamiento de software son: licencia libre, software de dominio público, licencia open source y software comercial.",
+    opts:["Verdadero","Falso"], a:0, fixed:true,
+    why:"Son los tipos de licencia más comunes para usar y distribuir software." },
+  { q:"Ejemplos de puertos físicos son: paralelo, serial, USB, HDMI, MIDI.",
+    opts:["Cierto","Falso"], a:0, fixed:true,
+    why:"Todos son conectores físicos donde se enchufan cables o dispositivos." },
+  { q:"A este tipo de memoria se le denomina de “acceso aleatorio” por la forma en que es leída la información, y todo se lleva a cabo por medio de impulsos eléctricos en un circuito. Estamos hablando de la memoria:",
+    opts:["RAM (Random Access Memory)","ROM (Read Only Memory)","Memoria caché"], a:0,
+    why:"RAM significa Random Access Memory, es decir, memoria de acceso aleatorio." },
+  { q:"Es la parte lógica de la computadora.",
+    opts:["Software","Hardware"], a:0, fixed:true,
+    why:"El software son los programas e instrucciones; no se puede tocar." },
+  { q:"¿Cuál es la función de la memoria RAM?",
+    opts:["En esta memoria se cargan los programas que está utilizando la computadora","Permitir el acceso rápido a los datos copiados","Almacenar datos en el disco duro"], a:0,
+    why:"La RAM guarda temporalmente los programas y datos que se están usando en ese momento." },
+  { q:"¿Cuál es el dispositivo de almacenamiento más importante en tu computadora?",
+    opts:["Unidad de CD-ROM","Memoria RAM","Disco duro"], a:2,
+    why:"El disco duro guarda el sistema operativo, los programas y tus archivos de forma permanente." },
+  { q:"Es un tipo de puerto cuya función es ser canal de comunicación que permite el envío y recepción de datos de diferentes aplicaciones en una red.",
+    opts:["Físicos","Lógicos","Temporal"], a:1,
+    why:"Los puertos lógicos no se ven; son números que usan los programas para comunicarse en red." },
+  { q:"Una de sus clasificaciones es el sistema operativo, ya que administra los recursos físicos y lógicos de una computadora y controla los dispositivos de entrada/salida desde el CPU hacia los periféricos y viceversa.",
+    opts:["Software de aplicación","Software de programación","Software de sistema"], a:2,
+    why:"El sistema operativo es software de sistema." },
+  { q:"Al componente que se conecta a dispositivos periféricos con la finalidad de obtener las entradas y producir las salidas se le conoce como tarjeta…",
+    opts:["Central","Operativa","Madre"], a:2,
+    why:"La tarjeta madre conecta todos los componentes y periféricos de la computadora." },
 ];
+
+/* Elige PER_QUIZ preguntas al azar del banco y revuelve sus opciones */
+function buildQuiz(){
+  return shuffle(BANK.slice()).slice(0, PER_QUIZ).map(Q => {
+    if (Q.fixed) return Q;
+    const idx = shuffle(Q.opts.map((_, i) => i));
+    return { ...Q, opts: idx.map(i => Q.opts[i]), a: idx.indexOf(Q.a) };
+  });
+}
+let QUESTIONS = buildQuiz();
 
 const form = document.getElementById('quiz');
 const fill = document.getElementById('fill');
@@ -285,7 +344,8 @@ retryBtn.addEventListener('click', () => {
   result.hidden = true;
   gradeBtn.hidden = false;
   retryBtn.hidden = true;
-  order = shuffle(order.slice());
+  QUESTIONS = buildQuiz();
+  order = QUESTIONS.map((_, i) => i);
   render();
   window.scrollTo({top:0, behavior:'smooth'});
 });
